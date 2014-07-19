@@ -1,0 +1,75 @@
+﻿
+@*Validacion de Datos Ingresados*@
+
+@{  
+  //Validar que el campo NOMBRE DE EMPRESA NO ESTE VACIO
+    Validation.RequireField("empresa", "Nombre de la empresa es obligatorio");
+    //Validar que el campo de nombre de empleado no este vacio
+    Validation.RequireField("nombre", "Nombre de la empresa es obligatorio");
+
+    Validation.RequireField("nrousuario", "Nro de empleado es obligatorio");
+  //Validar que el campo nro del empleado sea entero
+    Validation.Add("NrodeUsuario", Validator.Integer());
+    
+    //SI ES POST INGRESA EN EL IF
+    
+    if (IsPost)
+    {
+        //SE DECLARAN LAS VARIABLES Y SE LES ASIGNA LOS VALORES INGRESADOS EN EL TEXTBOX
+        var nombreEmpresa = Request.Form["empresa"];
+        var Nombre = Request.Form["nombre"];
+        var NrodeUsuario = Request.Form["nrousuario"];
+        
+        //SI SE INGRESARON CORRECTAMENTE LOS DATOS EL RESULTADO ES TRUE E INFRESA EN EL IF
+        
+        if (Validation.IsValid())
+        {
+           <text>
+                 You entered:<br />
+                 NombreEmpresa: @nombreEmpresa <br />
+                 Nombre:@Nombre <br />
+                 NrodeUsuario: @NrodeUsuario <br /> 
+        </text>
+        }
+
+ }
+    
+ 
+}
+  
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title> Añadir usuario</title>
+</head>
+<body>
+    <center>
+        <form action="" method="post">
+            <fieldset>
+                <legend>Agregar Usuario</legend>
+                <div>
+                    <label>Empresa: </label>
+                    <input type="text" name="Empresa" value="@Request.Form["empresa"] " />
+                    @Html.ValidationMessage("empresa")
+                </div>
+                <div>
+                    <label>Nombre: </label>
+                    <input type="text" name="Nombre" value="@Request.Form["nombre"]" />
+                    @Html.ValidationMessage("nombre")
+
+                </div>
+                <div>
+                    <label>NrodeUsuario: </label>
+                    <input type="text" name="Nrousuario" value="@Request.Form["nrousuario"]" />
+                    @Html.ValidationMessage("nrousuario")
+
+                </div>
+                <div>
+                    <label>&nbsp;</label>
+                    <input type="submit" value="Aceptar" />
+                </div>
+            </fieldset>
+        </form>
+    </center>
+</body>
+</html>
